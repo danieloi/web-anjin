@@ -9,8 +9,8 @@ button.style.zIndex = '1000'
 button.style.borderRadius = '100%'
 button.style.backgroundColor = '#3b82f6'
 button.style.color = 'white'
-button.style.width = '80px'
-button.style.height = '80px'
+button.style.width = '60px'
+button.style.height = '60px'
 button.style.borderColor = 'transparent'
 
 let isDragging = false
