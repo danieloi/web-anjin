@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
-const DraggableButton = () => {
+const useDraggable = () => {
   const isDragging = useRef(false)
   const position = useRef({ x: 20, y: 20 })
   const velocity = useRef({ x: 0, y: 0 })
@@ -97,26 +97,14 @@ const DraggableButton = () => {
     }
   }, [])
 
-  return (
-    <button
-      ref={buttonRef}
-      id="draggable-button"
-      style={{
-        position: 'fixed',
-        left: `${position.current.x}px`,
-        top: `${position.current.y}px`,
-        zIndex: 1000,
-        borderRadius: '100%',
-        backgroundColor: '#3b82f6',
-        color: 'white',
-        width: '60px',
-        height: '60px',
-        borderColor: 'transparent',
-        cursor: 'grab',
-      }}
-      onMouseDown={handleMouseDown}
-    />
-  )
+  return {
+    buttonRef,
+    position,
+    isDragging,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+  }
 }
 
-export default DraggableButton
+export default useDraggable
