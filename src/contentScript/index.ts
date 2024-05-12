@@ -14,11 +14,11 @@ button.style.height = '80px'
 button.style.borderColor = 'transparent'
 
 let isDragging = false
-let lastX,
-  lastY,
+let lastX: number,
+  lastY: number,
   velocityX = 0,
   velocityY = 0
-let offsetX, offsetY
+let offsetX: number, offsetY: number
 
 button.addEventListener('mousedown', function (e) {
   isDragging = true
