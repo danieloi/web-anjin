@@ -41,7 +41,7 @@ const useDraggable = () => {
     }
   }
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: MouseEvent) => {
     isDragging.current = false
 
     if (buttonRef.current) {
@@ -91,7 +91,7 @@ const useDraggable = () => {
 
   useEffect(() => {
     const handleMouseMoveWrapper = (e: MouseEvent) => handleMouseMove(e)
-    const handleMouseUpWrapper = () => handleMouseUp()
+    const handleMouseUpWrapper = (e: MouseEvent) => handleMouseUp(e)
 
     document.addEventListener('mousemove', handleMouseMoveWrapper)
     document.addEventListener('mouseup', handleMouseUpWrapper)
