@@ -18,9 +18,13 @@ let lastX,
   lastY,
   velocityX = 0,
   velocityY = 0
+let offsetX, offsetY
 
 button.addEventListener('mousedown', function (e) {
   isDragging = true
+  const rect = button.getBoundingClientRect()
+  offsetX = e.pageX - rect.left // Calculate the offset for X
+  offsetY = e.pageY - rect.top // Calculate the offset for Y
   lastX = e.pageX
   lastY = e.pageY
 })
@@ -32,9 +36,9 @@ document.addEventListener('mousemove', function (e) {
     velocityX = deltaX
     velocityY = deltaY
 
-    // Center the button on the cursor
-    button.style.left = e.pageX - button.offsetWidth / 2 + 'px'
-    button.style.top = e.pageY - button.offsetHeight / 2 + 'px'
+    // Use the offsets to adjust the button's position so there's no jump
+    button.style.left = e.pageX - offsetX + 'px'
+    button.style.top = e.pageY - offsetY + 'px'
 
     button.style.right = ''
     button.style.bottom = ''
