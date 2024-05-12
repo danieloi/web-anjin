@@ -44,6 +44,8 @@ const DraggableButton = () => {
     if (!pointAndAskActive || !hoveredElement) return
     setElementText(hoveredElement.textContent || '')
     setDialogOpen(true) // Open the dialog
+    hoveredElement.classList.add('highlight') // Ensure the clicked element is highlighted
+    setPointAndAskActive(false) // Temporarily disable pointAndAsk mode
   }
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -104,7 +106,18 @@ const DraggableButton = () => {
         }}
         onMouseDown={handleMouseDown}
       />
-      <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
+      <Dialog.Root
+        open={dialogOpen}
+        onOpenChange={(isOpen) => {
+          setDialogOpen(isOpen)
+          if (!isOpen) {
+            setPointAndAskActive(false) // Turn off pointAndAsk mode when dialog is closed
+            document.querySelectorAll('.highlight').forEach((el) => {
+              el.classList.remove('highlight')
+            })
+          }
+        }}
+      >
         <DropdownMenu.Root open={active} onOpenChange={(open) => dispatch(setActive(open))}>
           <DropdownMenu.Trigger asChild>
             {/* hack to make dragging and triggers work */}
