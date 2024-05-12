@@ -48,19 +48,36 @@ const DraggableButton = () => {
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       setPointAndAskActive(false)
+      document.querySelectorAll('.highlight').forEach((el) => {
+        el.classList.remove('highlight')
+      })
     }
   }
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [pointAndAskActive, hoveredElement])
 
   React.useEffect(() => {
     if (pointAndAskActive) {
       document.addEventListener('mouseover', handleMouseOver)
       document.addEventListener('click', handleElementClick)
-      window.addEventListener('keydown', handleKeyDown)
     } else {
       document.removeEventListener('mouseover', handleMouseOver)
       document.removeEventListener('click', handleElementClick)
-      window.removeEventListener('keydown', handleKeyDown)
-      setHoveredElement(null)
+      if (hoveredElement) {
+        hoveredElement.classList.remove('highlight')
+      }
+      document.querySelectorAll('.highlight').forEach((el) => {
+        el.classList.remove('highlight')
+      })
+    }
+    return () => {
+      document.removeEventListener('mouseover', handleMouseOver)
+      document.removeEventListener('click', handleElementClick)
     }
   }, [hoveredElement, pointAndAskActive])
 
