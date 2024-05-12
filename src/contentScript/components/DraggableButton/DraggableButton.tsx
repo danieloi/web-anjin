@@ -46,29 +46,17 @@ const DraggableButton = () => {
         </DropdownMenu.Trigger>
         <DropdownMenu.Portal>
           <DropdownMenu.Content
-            className="z-50 min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+            className="z-50 min-w-[220px] bg-white rounded-md p-1 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
             sideOffset={5}
           >
-            <DropdownMenu.Item className="group text-[13px] leading-none text-violet-400 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-violet-200 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet-900 data-[highlighted]:text-violet-100">
-              New Tab{' '}
-              <div className="ml-auto pl-[20px] text-violet-200 group-data-[highlighted]:text-white group-data-[disabled]:text-violet-200">
-                ⌘+T
-              </div>
+            <DropdownMenu.Item className="group text-[14px] leading-none text-violet-400 rounded-md flex items-center h-8 px-1 relative pl-7 select-none outline-none data-[disabled]:text-violet-200 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet-900 data-[highlighted]:text-violet-100">
+              Smarter Search
             </DropdownMenu.Item>
-            <DropdownMenu.Item className="group text-[13px] leading-none text-violet-400 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-violet-200 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet-900 data-[highlighted]:text-violet-100">
-              New Window{' '}
-              <div className="ml-auto pl-[20px] text-violet-200 group-data-[highlighted]:text-white group-data-[disabled]:text-violet-200">
-                ⌘+N
-              </div>
+            <DropdownMenu.Item className="group text-[14px] leading-none text-violet-400 rounded-md flex items-center h-8 px-1 relative pl-7 select-none outline-none data-[disabled]:text-violet-200 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet-900 data-[highlighted]:text-violet-100">
+              Point and Ask Mode
             </DropdownMenu.Item>
-            <DropdownMenu.Item
-              className="group text-[13px] leading-none text-violet-400 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-violet-200 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet-900 data-[highlighted]:text-violet-100"
-              disabled
-            >
-              New Private Window{' '}
-              <div className="ml-auto pl-[20px] text-violet-200 group-data-[highlighted]:text-white group-data-[disabled]:text-violet-200">
-                ⇧+⌘+N
-              </div>
+            <DropdownMenu.Item className="group text-[14px] leading-none text-violet-400 rounded-md flex items-center h-8 px-1 relative pl-7 select-none outline-none data-[disabled]:text-violet-200 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet-900 data-[highlighted]:text-violet-100">
+              Hide Assistant
             </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
