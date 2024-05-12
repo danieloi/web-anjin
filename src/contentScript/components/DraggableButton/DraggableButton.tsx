@@ -20,6 +20,50 @@ const DraggableButton = () => {
   const active = useAppSelector((state) => state.active.isActive)
 
   const { buttonRef, position, handleMouseDown } = useDraggable()
+
+  const [pointAndAskActive, setPointAndAskActive] = React.useState(false)
+  const [hoveredElement, setHoveredElement] = React.useState<Element | null>(null)
+  const [elementText, setElementText] = React.useState('')
+
+  const togglePointAndAskMode = () => {
+    setPointAndAskActive(!pointAndAskActive)
+  }
+
+  const handleMouseOver = (event: MouseEvent) => {
+    if (!pointAndAskActive) return
+    if (hoveredElement) {
+      hoveredElement.classList.remove('highlight')
+    }
+    const target = event.target as Element
+    target.classList.add('highlight')
+    setHoveredElement(target)
+  }
+
+  const handleElementClick = () => {
+    if (!pointAndAskActive || !hoveredElement) return
+    setElementText(hoveredElement.textContent || '')
+    // Optionally, trigger the smarter-page-search feature here
+  }
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setPointAndAskActive(false)
+    }
+  }
+
+  React.useEffect(() => {
+    if (pointAndAskActive) {
+      document.addEventListener('mouseover', handleMouseOver)
+      document.addEventListener('click', handleElementClick)
+      window.addEventListener('keydown', handleKeyDown)
+    } else {
+      document.removeEventListener('mouseover', handleMouseOver)
+      document.removeEventListener('click', handleElementClick)
+      window.removeEventListener('keydown', handleKeyDown)
+      setHoveredElement(null)
+    }
+  }, [hoveredElement, pointAndAskActive])
+
   return (
     <>
       <button
@@ -69,7 +113,10 @@ const DraggableButton = () => {
                   </div>
                 </DropdownMenu.Item>
               </Dialog.Trigger>
-              <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+              <DropdownMenu.Item
+                onClick={togglePointAndAskMode}
+                className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+              >
                 Point and Ask Mode
                 <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
                   <CursorArrowIcon />
@@ -101,11 +148,15 @@ const DraggableButton = () => {
   )
 }
 
+document.head.insertAdjacentHTML(
+  'beforeend',
+  '<style>.highlight { background-color: rgba(255, 255, 0, 0.5); }</style>',
+)
+
 const DialogBody = () => {
   const [inputValue, setInputValue] = React.useState('')
   const [apiResponse, setApiResponse] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false) // Add this line
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
   }
