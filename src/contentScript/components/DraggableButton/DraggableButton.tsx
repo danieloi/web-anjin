@@ -24,6 +24,7 @@ const DraggableButton = () => {
   const [pointAndAskActive, setPointAndAskActive] = React.useState(false)
   const [hoveredElement, setHoveredElement] = React.useState<Element | null>(null)
   const [elementText, setElementText] = React.useState('')
+  const [dialogOpen, setDialogOpen] = React.useState(false)
 
   const togglePointAndAskMode = () => {
     setPointAndAskActive(!pointAndAskActive)
@@ -42,7 +43,7 @@ const DraggableButton = () => {
   const handleElementClick = () => {
     if (!pointAndAskActive || !hoveredElement) return
     setElementText(hoveredElement.textContent || '')
-    // Optionally, trigger the smarter-page-search feature here
+    setDialogOpen(true) // Open the dialog
   }
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -103,7 +104,7 @@ const DraggableButton = () => {
         }}
         onMouseDown={handleMouseDown}
       />
-      <Dialog.Root>
+      <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
         <DropdownMenu.Root open={active} onOpenChange={(open) => dispatch(setActive(open))}>
           <DropdownMenu.Trigger asChild>
             {/* hack to make dragging and triggers work */}
