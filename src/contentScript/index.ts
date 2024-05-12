@@ -1,16 +1,17 @@
 console.info('contentScript is running')
 
 const button = document.createElement('button')
-button.textContent = 'Click Me!'
 button.id = 'draggable-button'
 button.style.position = 'fixed'
 button.style.bottom = '20px'
 button.style.right = '20px'
 button.style.zIndex = '1000'
 button.style.borderRadius = '100%'
-button.style.backgroundColor = 'blue'
+button.style.backgroundColor = '#3b82f6'
 button.style.color = 'white'
-button.style.padding = '10px 20px'
+button.style.width = '80px'
+button.style.height = '80px'
+button.style.borderColor = 'transparent'
 
 let isDragging = false
 let lastX,
@@ -30,8 +31,11 @@ document.addEventListener('mousemove', function (e) {
     let deltaY = e.pageY - lastY
     velocityX = deltaX
     velocityY = deltaY
-    button.style.left = e.pageX + 'px'
-    button.style.top = e.pageY + 'px'
+
+    // Center the button on the cursor
+    button.style.left = e.pageX - button.offsetWidth / 2 + 'px'
+    button.style.top = e.pageY - button.offsetHeight / 2 + 'px'
+
     button.style.right = ''
     button.style.bottom = ''
     lastX = e.pageX
