@@ -1,17 +1,15 @@
 import { useEffect, useRef } from 'react'
 
-const useDraggable = () => {
+const useDraggable = (buttonRef: React.RefObject<HTMLButtonElement>) => {
   const isDragging = useRef(false)
   const position = useRef({ x: 20, y: 20 })
   const velocity = useRef({ x: 0, y: 0 })
   const lastPosition = useRef({ x: 0, y: 0 })
   const offset = useRef({ x: 0, y: 0 })
-  const buttonRef = useRef<HTMLButtonElement>(null)
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     isDragging.current = true
     const rect = e.currentTarget.getBoundingClientRect()
-    e.currentTarget.style.cursor = 'grab'
     lastPosition.current = {
       x: e.pageX,
       y: e.pageY,
@@ -45,7 +43,6 @@ const useDraggable = () => {
     isDragging.current = false
 
     if (buttonRef.current) {
-      buttonRef.current.style.cursor = 'default'
       animateButton()
     }
   }
