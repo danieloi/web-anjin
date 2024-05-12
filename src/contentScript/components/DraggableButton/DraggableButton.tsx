@@ -19,7 +19,6 @@ const DraggableButton = () => {
         width: '60px',
         height: '60px',
         borderColor: 'transparent',
-        cursor: 'grab',
       }}
       onMouseDown={handleMouseDown}
     />

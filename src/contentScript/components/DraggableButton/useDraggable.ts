@@ -11,6 +11,7 @@ const useDraggable = () => {
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     isDragging.current = true
     const rect = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.cursor = 'grab'
     lastPosition.current = {
       x: e.pageX,
       y: e.pageY,
@@ -42,7 +43,11 @@ const useDraggable = () => {
 
   const handleMouseUp = () => {
     isDragging.current = false
-    animateButton()
+
+    if (buttonRef.current) {
+      buttonRef.current.style.cursor = 'default'
+      animateButton()
+    }
   }
 
   const animateButton = () => {
