@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import activeReducer from './slices/active.slice'
+import assistantReducer from './slices/assistantState.slice'
 
 export const store = configureStore({
   reducer: {
-    active: activeReducer,
+    assistant: assistantReducer,
   },
 })
 

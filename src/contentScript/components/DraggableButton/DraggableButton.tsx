@@ -1,7 +1,7 @@
 import React from 'react'
 import useDraggable from './useDraggable'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { setActive } from '../../redux/slices/active.slice'
+import { setActive, setHidden } from '../../redux/slices/assistantState.slice'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import * as Dialog from '@radix-ui/react-dialog'
 import {
@@ -17,7 +17,8 @@ const ORB_DIMENSIONS = 60
 const DraggableButton = () => {
   const dispatch = useAppDispatch()
 
-  const active = useAppSelector((state) => state.active.isActive)
+  const active = useAppSelector((state) => state.assistant.isActive)
+  const hidden = useAppSelector((state) => state.assistant.isHidden)
 
   const { buttonRef, position, handleMouseDown } = useDraggable()
 
@@ -83,6 +84,10 @@ const DraggableButton = () => {
       document.removeEventListener('click', handleElementClick)
     }
   }, [hoveredElement, pointAndAskActive])
+
+  if (hidden) {
+    return null
+  }
 
   return (
     <>
@@ -159,7 +164,10 @@ const DraggableButton = () => {
                   <GearIcon />
                 </div>
               </DropdownMenu.Item>
-              <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+              <DropdownMenu.Item
+                onSelect={() => dispatch(setHidden(!hidden))}
+                className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+              >
                 Hide Assistant
                 <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
                   <EyeClosedIcon />
