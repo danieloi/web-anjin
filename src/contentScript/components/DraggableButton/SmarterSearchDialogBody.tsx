@@ -1,8 +1,8 @@
 import React from 'react'
 import LoadingSpinner from './LoadingSpinner'
-import MagnifyingGlassIcon from '@radix-ui/react-icons/dist/MagnifyingGlassIcon'
-import Dialog from '@radix-ui/react-dialog'
-import Separator from '@radix-ui/react-separator'
+import * as Dialog from '@radix-ui/react-dialog'
+import * as Separator from '@radix-ui/react-separator'
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 
 const SmarterSearchDialogBody = () => {
   const [inputValue, setInputValue] = React.useState('')
@@ -33,7 +33,7 @@ const SmarterSearchDialogBody = () => {
   }
 
   return (
-    <>
+    <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
       <fieldset className="mb-[15px] flex items-center gap-5">
         <div>{isLoading ? <LoadingSpinner /> : <MagnifyingGlassIcon className="h-5 w-5" />}</div>
         <input
@@ -51,7 +51,7 @@ const SmarterSearchDialogBody = () => {
       </Dialog.Description>
       <Separator.Root className="bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
       <p className="text-mauve11 m-0 text-[13px]">{apiResponse}</p>
-    </>
+    </Dialog.Content>
   )
 }
 
