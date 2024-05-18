@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 // const useDraggable = (buttonRef: React.RefObject<HTMLButtonElement>) => {
 const useDraggable = () => {
   const isDragging = useRef(false)
-  const position = useRef({ x: 20, y: 20 })
+  const position = useRef({ x: 100, y: 100 })
   const velocity = useRef({ x: 0, y: 0 })
   const lastPosition = useRef({ x: 0, y: 0 })
   const offset = useRef({ x: 0, y: 0 })

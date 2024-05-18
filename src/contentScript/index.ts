@@ -22,10 +22,15 @@ try {
 
     const reactRootDiv = document.createElement('div')
     reactRootDiv.id = 'shadow-root-react-root'
+    // next two styles are so sites like YouTube
+    // don't have header overlay our draggable button
+    reactRootDiv.style.zIndex = '9999'
+    reactRootDiv.style.position = 'fixed'
     shadowRoot.appendChild(reactRootDiv)
 
     const root = createRoot(reactRootDiv)
     root.render(React.createElement(App, null))
+    console.log('button mounted')
   }
 } catch (error) {
   console.error('Failed to find #react-root element')
