@@ -17,7 +17,6 @@ try {
     const style = document.createElement('style')
     // Assuming you have a build process that outputs Tailwind CSS to a specific file
     // You need to fetch this CSS and then apply it here
-    console.log({ indexCss })
     style.textContent = indexCss
     shadowRoot.appendChild(style)
 
@@ -26,9 +25,7 @@ try {
     shadowRoot.appendChild(reactRootDiv)
 
     const root = createRoot(reactRootDiv)
-    setTimeout(() => {
-      root.render(React.createElement(App, null))
-    }, 3000)
+    root.render(React.createElement(App, null))
   }
 } catch (error) {
   console.error('Failed to find #react-root element')

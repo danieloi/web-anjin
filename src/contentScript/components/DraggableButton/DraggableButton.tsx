@@ -22,6 +22,9 @@ const DraggableButton = () => {
   const hidden = useAppSelector((state) => state.assistant.isHidden)
 
   const { buttonRef, position, handleMouseDown } = useDraggable()
+  // mount the portals within the shadow dom so the elements
+  // aren't affected by the styles on the main page
+  const portalRef = React.useRef<HTMLDivElement>(null)
 
   const [pointAndAskActive, setPointAndAskActive] = React.useState(false)
   const [hoveredElement, setHoveredElement] = React.useState<Element | null>(null)
@@ -106,8 +109,8 @@ const DraggableButton = () => {
           zIndex: 1000,
           borderRadius: '100%',
           color: 'white',
-          width: '60px',
-          height: '60px',
+          width: `${ORB_DIMENSIONS}px`,
+          height: `${ORB_DIMENSIONS}px`,
           borderColor: 'transparent',
         }}
         onMouseDown={handleMouseDown}
@@ -132,14 +135,14 @@ const DraggableButton = () => {
                 position: 'fixed',
                 left: `${position.current.x}px`,
                 top: `${position.current.y}px`,
-                width: '60px',
-                height: '60px',
+                width: `${ORB_DIMENSIONS}px`,
+                height: `${ORB_DIMENSIONS}px`,
               }}
             />
           </DropdownMenu.Trigger>
-          <DropdownMenu.Portal>
+          <DropdownMenu.Portal container={portalRef.current}>
             <DropdownMenu.Content
-              className="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+              className="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(2,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
               sideOffset={5}
             >
               <Dialog.Trigger asChild>
@@ -177,7 +180,7 @@ const DraggableButton = () => {
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
-        <Dialog.Portal>
+        <Dialog.Portal container={portalRef.current}>
           <Dialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
           {pointAndAskActive ? (
             <PointAndAskDialogBody highlightedText={elementText} />
@@ -186,6 +189,7 @@ const DraggableButton = () => {
           )}
         </Dialog.Portal>
       </Dialog.Root>
+      <div ref={portalRef} />
     </>
   )
 }
