@@ -17,7 +17,7 @@ const SmarterSearchDialogBody = () => {
       event.preventDefault()
       setIsLoading(true) // Set loading to true before the fetch call
       const response = await fetch(
-        'https://88g84y9v17.execute-api.us-east-1.amazonaws.com/smarter-page-search',
+        'https://cug62w98t6.execute-api.us-west-2.amazonaws.com/smarter-page-search',
         {
           method: 'POST',
           headers: {
@@ -27,6 +27,7 @@ const SmarterSearchDialogBody = () => {
         },
       )
       const data = await response.json() // Assuming the response is plain text
+      console.log({ data })
       setApiResponse(data.content)
       setIsLoading(false) // Set loading to false after the fetch call
     }
