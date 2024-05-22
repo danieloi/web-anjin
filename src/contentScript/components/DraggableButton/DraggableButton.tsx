@@ -12,11 +12,20 @@ import {
 } from '@radix-ui/react-icons'
 import PointAndAskDialogBody from './PointAndAskDialogBody'
 import SmarterSearchDialogBody from './SmarterSearchDialogBody'
+import { useFlags } from 'launchdarkly-react-client-sdk'
+import { getBgColorFromHolidays, getEmojiFromFlags } from './utils'
 
 const ORB_DIMENSIONS = 60
 
 const DraggableButton = () => {
   const dispatch = useAppDispatch()
+
+  const { holidays } = useFlags()
+
+  console.log({ holidays })
+
+  const emoji = getEmojiFromFlags(holidays)
+  const bgColor = getBgColorFromHolidays(holidays)
 
   const active = useAppSelector((state) => state.assistant.isActive)
   const hidden = useAppSelector((state) => state.assistant.isHidden)
@@ -101,12 +110,14 @@ const DraggableButton = () => {
         }}
         ref={buttonRef}
         id="draggable-button"
+        // className={`${active ? 'bg-blue-300' : `bg-${bgColor}-400`} shadow-[0_2px_10px] shadow-blackA4 outline-none hover:bg-${bgColor}-300 `}
         className={`${active ? 'bg-blue-300' : 'bg-blue-400'} shadow-[0_2px_10px] shadow-blackA4 outline-none hover:bg-blue-300 `}
         style={{
           position: 'fixed',
           left: `${position.current.x}px`,
           top: `${position.current.y}px`,
           zIndex: 1000,
+          fontSize: '32px',
           borderRadius: '100%',
           color: 'white',
           width: `${ORB_DIMENSIONS}px`,
@@ -177,6 +188,11 @@ const DraggableButton = () => {
                   <EyeClosedIcon />
                 </div>
               </DropdownMenu.Item>
+              {holidays !== 'HOLIDAY_NONE' && (
+                <DropdownMenu.Item className="justify-center group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+                  {emoji} Happy Holidays!
+                </DropdownMenu.Item>
+              )}
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
